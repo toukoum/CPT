@@ -3,12 +3,10 @@ import { z } from "zod";
 
 export const swap = tool({
   description:
-    "Swap SOL (input) to output from your connected wallet. DON'T ASK FOR CONFIRMATION BEFORE SWAP.",
+    "Swap tokens (CHZ, WPSG, WBAR) from your connected wallet. DON'T ASK FOR CONFIRMATION BEFORE SWAP.",
   parameters: z.object({
-    amount: z.number().positive().describe("Amount of SOL to swap."),
-    input: z.enum(["SOL", "BTC", "USDC", "ETH", "META"]).describe("Input token address"),
-    output: z
-      .enum(["SOL", "BTC", "USDC", "ETH", "META"])
-      .describe("Output token address"),
+    amount: z.number().positive().describe("Amount of input token to swap."),
+    input: z.enum(["CHZ", "WPSG", "WBAR"]).describe("Input token"),
+    output: z.enum(["CHZ", "WPSG", "WBAR"]).describe("Output token"),
   }),
 });
