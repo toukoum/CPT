@@ -12,31 +12,7 @@ import { useEffect } from 'react';
 export default function ConversationPage({
   params,
 }: {
-  params: { id: string };
-}) {
-  const { isConnected } = useAppKitAccount();                           // ✅
-
-  const id = params.id;
-
-  const getChatById     = useChatStore((state) => state.getChatById);
-  const saveMessages    = useChatStore((state) => state.saveMessages);
-  const setCurrentChatId = useChatStore((state) => state.setCurrentChatId);
-
-  // Vérifie si la conversation existe déjà
-  const chat = getChatById(id);
-
-  useEffect(() => {
-    setCurrentChatId(id);
-
-    // Crée un chat vide si inexistant
-    if (!chat) {
-      saveMessages(id, []);
-    }
-  }, [id, chat, setCurrentChatId, saveMessages]);
-
-  /* ───────────────────────────────────────────── */
-  /* Aucun wallet connecté → inviter l’utilisateur */
-  /* ───────────────────────────────────────────── */
+  params: { id: string
   if (!isConnected) {
     return (
       <div className="w-full py-6 px-10">
@@ -68,8 +44,7 @@ export default function ConversationPage({
                 Agent
               </Link>
             </TabsTrigger>
-            <TabsTrigger value="chat" className="flex h-full items-center gap-2">
-              <MessageSquare className="h-4 w-4" />
+            <TabsTrigger vae className="h-4 w-4" />
               Chat
             </TabsTrigger>
           </TabsList>
