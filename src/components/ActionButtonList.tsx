@@ -7,14 +7,7 @@ export const ActionButtonList = () => {
     const { open } = useAppKit();
     const { switchNetwork } = useAppKitNetwork();
 
-    const handleDisconnect = async () => {
-      try {
-        await disconnect();
-      } catch (error) {
-        console.error("Failed to disconnect:", error);
-      }
-    }
-  return (
+    const handleDisconnect
     <div>
         <button onClick={() => open()}>Open</button>
         <button onClick={handleDisconnect}>Disconnect</button>
