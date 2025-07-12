@@ -19,6 +19,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { ToolCard } from '@/components/agent/tool-card-static';
+import { AGENT_TOOLS } from '@/utils/tool-list';
+
 
 // Configuration des équipes
 const TEAMS = [
@@ -30,177 +32,7 @@ const TEAMS = [
 ];
 
 // Tools hardcodés
-const AGENT_TOOLS = [
-  {
-    id: 'checkPortfolio',
-    name: 'Check Portfolio',
-    description: "Check your CHZ and fan tokens portfolio on Chiliz chain. Get a comprehensive view of your holdings and their current value.",
-    image: '/tools/portfolio.png',
-    category: 'Finance',
-    parameters: {
-      params: []
-    },
-    enabled: true,
-    createdAt: new Date().toISOString(),
-    isDefault: true,
-  },
-  {
-    id: 'send',
-    name: 'Send CHZ',
-    description: "Send native CHZ tokens to any address on Chiliz Chain. Simple and secure transfers.",
-    image: '/tools/send.png',
-    category: 'Transfer',
-    parameters: {
-      params: [
-        {
-          name: 'to',
-          type: 'string',
-          required: true,
-          description: 'Recipient EVM address (0x...)'
-        },
-        {
-          name: 'amount',
-          type: 'number',
-          required: true,
-          description: 'Amount of CHZ to send'
-        }
-      ]
-    },
-    enabled: true,
-    createdAt: new Date().toISOString(),
-    isDefault: true,
-  },
-  {
-    id: 'swap',
-    name: 'Swap Tokens',
-    description: "Swap between CHZ and fan tokens (WPSG, WBAR) instantly from your wallet.",
-    image: '/tools/swap.png',
-    category: 'DeFi',
-    parameters: {
-      params: [
-        {
-          name: 'amount',
-          type: 'number',
-          required: true,
-          description: 'Amount to swap'
-        },
-        {
-          name: 'input',
-          type: 'string',
-          required: true,
-          description: 'Input token (CHZ, WPSG, WBAR)'
-        },
-        {
-          name: 'output',
-          type: 'string',
-          required: true,
-          description: 'Output token (CHZ, WPSG, WBAR)'
-        }
-      ]
-    },
-    enabled: true,
-    createdAt: new Date().toISOString(),
-    isDefault: true,
-  },
-  {
-    id: 'dailyEdge',
-    name: 'Daily Edge',
-    description: "AI-powered analysis of fan token trends. Get 24h predictions based on news sentiment and market data.",
-    image: '/tools/dailyedge.png',
-    category: 'Analysis',
-    parameters: {
-      params: [
-        {
-          name: 'team',
-          type: 'string',
-          required: true,
-          description: 'Team to analyze (PSG, CITY, BAR)'
-        }
-      ]
-    },
-    enabled: true,
-    createdAt: new Date().toISOString(),
-    isDefault: true,
-  },
-  {
-    id: 'convert',
-    name: 'Convert Crypto',
-    description: "Convert between any cryptocurrencies. Get real-time exchange rates.",
-    image: '/tools/convert.png',
-    category: 'Utility',
-    parameters: {
-      params: [
-        {
-          name: 'amount',
-          type: 'number',
-          required: true,
-          description: 'Amount to convert'
-        },
-        {
-          name: 'fromCurrency',
-          type: 'string',
-          required: true,
-          description: 'Source currency (e.g. BTC)'
-        },
-        {
-          name: 'toCurrency',
-          type: 'string',
-          required: true,
-          description: 'Target currency (e.g. USDC)'
-        }
-      ]
-    },
-    enabled: true,
-    createdAt: new Date().toISOString(),
-    isDefault: true,
-  },
-  {
-    id: 'displayresults',
-    name: 'Portfolio Chart',
-    description: "Visualize your portfolio allocation with beautiful pie charts. Perfect for understanding your asset distribution.",
-    image: '/tools/chart.png',
-    category: 'Visualization',
-    parameters: {
-      params: [
-        {
-          name: 'chartData',
-          type: 'array',
-          required: true,
-          description: 'Array of {x: asset name, y: percentage}'
-        },
-        {
-          name: 'title',
-          type: 'string',
-          required: true,
-          description: 'Chart title'
-        }
-      ]
-    },
-    enabled: true,
-    createdAt: new Date().toISOString(),
-    isDefault: true,
-  },
-  {
-    id: 'getWeather',
-    name: 'Weather Info',
-    description: "Get current weather information for any city. Stay updated on match day conditions!",
-    image: '/tools/weather.png',
-    category: 'Utility',
-    parameters: {
-      params: [
-        {
-          name: 'city',
-          type: 'string',
-          required: true,
-          description: 'City name'
-        }
-      ]
-    },
-    enabled: true,
-    createdAt: new Date().toISOString(),
-    isDefault: true,
-  }
-];
+
 
 export default function AgentPage() {
   const [activeTab, setActiveTab] = useState<'tools' | 'chat'>('tools');
@@ -289,7 +121,7 @@ export default function AgentPage() {
                       alt={currentTeam.name}
                       width={120}
                       height={120}
-                      className="object-contain rounded-full bg-white p-2"
+                      className="object-contain rounded-full bg-background "
                     />
                   </div>
                 </div>
